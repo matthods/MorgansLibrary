@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import {
   LayoutDashboard,
   BookOpen,
@@ -23,44 +23,14 @@ const nav = [
 
 type View = (typeof nav)[number]["id"]
 
-import { getBooks } from "@/src/lib/api";
-import { Book } from "@/src/types/books";
-
-    const [books, setBooks] = useState<Book[]>([]);
-
-
-    useEffect(() => {
-
-        async function loadBooks() {
-            const data = await getBooks();
-            setBooks(data);
-        }
-
-        loadBooks();
-
-    }, []);
-
-
-  /*  return (
-        <div>
-            <h1>Books</h1>
-
-            {books.map((book) => (
-                <div key={book.id}>
-                    <h2>{book.title}</h2>
-                    <p>{book.author}</p>
-
-                    <p>
-                        {book.available 
-                        ? "Available" 
-                        : "Checked Out"}
-                    </p>
-
-                </div>
-            ))}
-
-        </div>
-    );*/
+const books = [
+  { title: "The Midnight Library", author: "Matt Haig", genre: "Fiction", available: 4, copies: 6 },
+  { title: "Atomic Habits", author: "James Clear", genre: "Self-Help", available: 0, copies: 8 },
+  { title: "Sapiens", author: "Yuval Noah Harari", genre: "History", available: 2, copies: 5 },
+  { title: "Clean Code", author: "Robert C. Martin", genre: "Technology", available: 4, copies: 5 },
+  { title: "Dune", author: "Frank Herbert", genre: "Science Fiction", available: 2, copies: 6 },
+  { title: "Educated", author: "Tara Westover", genre: "Memoir", available: 1, copies: 4 },
+]
 
 const borrowers = [
   { name: "Eleanor Whitfield", email: "eleanor.w@example.com", loans: 3 },
@@ -151,7 +121,7 @@ function Card({ children, className }: { children: React.ReactNode; className?: 
 
 function Dashboard() {
   const stats = [
-    { label: "Total Books", value: books.reduce((s, b) => s + 1,0)},//b.copies, 0) },
+    { label: "Total Books", value: books.reduce((s, b) => s + b.copies, 0) },
     { label: "Titles", value: books.length },
     { label: "Members", value: borrowers.length },
     { label: "Active Loans", value: borrowers.reduce((s, b) => s + b.loans, 0) },
@@ -212,7 +182,7 @@ function Books({ query }: { query: string }) {
                 <td className="px-5 py-3 text-muted-foreground">{b.author}</td>
                 <td className="px-5 py-3 text-muted-foreground">{b.genre}</td>
                 <td className="px-5 py-3">
-                  {b.available}/{1}
+                  {b.available}/{b.copies}
                 </td>
               </tr>
             ))}
