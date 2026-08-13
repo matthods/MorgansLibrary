@@ -11,3 +11,13 @@ export async function getBooks() {
 
     return response.json();
 }
+
+export async function getBook(id: number) {
+  const response = await fetch(`${API_URL}/books/${id}`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch book");
+  }
+
+  return response.json();
+}

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { getBooks } from "@/lib/api";
 import { Book } from "@/types/books";
 
+import Link from "next/link"
+
 import { Search } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -66,7 +68,10 @@ export default function BooksPage() {
           <tbody>
             {filteredBooks.map((b) => (
               <tr key={b.id} className="border-b border-border last:border-0">
-                <td className="px-5 py-3 font-medium">{b.title}</td>
+                <td className="px-5 py-3 font-medium"><Link href={`/books/${b.id}`}
+        className="hover:underline">
+        {b.title}
+      </Link></td>
                 <td className="px-5 py-3 text-muted-foreground">{b.author}</td>
                 <td className="px-5 py-3 text-muted-foreground">{b.genre}</td>
                 <td className="px-5 py-3">

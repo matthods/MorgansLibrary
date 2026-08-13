@@ -9,4 +9,5 @@ export interface Book {
     description?: string;
     cover_image?: string;
     available: boolean;
+    date_added: string;
 }
